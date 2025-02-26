@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html class="light" lang="en" th:fragment="parent(content)"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Base Page</title>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+	rel="stylesheet" />
+<link rel="stylesheet" data-th-href="@{'/css/output.css'}">
+<link rel="stylesheet" th:href="@{'/css/style.css'}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+	<link href="https://unpkg.com/flowbite@latest/dist/flowbite.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="https://unpkg.com/flowbite@latest/dist/flowbite.bundle.js"></script>
+	
+</head>
+<body class="dark:bg-gray-900 dark:text-white">
+
+<!-- user is login -->
+	<div th:if="${loggedInUser}">
+		<div th:replace="~{user/user_navbar :: user_navbar}"></div>
+	</div>
+
+<!-- user is not login -->
+	<div th:unless="${loggedInUser}">
+		<!-- <div th:replace="navbar :: navbar"></div>  old way of writing code -->
+		<div th:replace="~{navbar :: navbar}"></div>
+	</div>
+	
+
+
+	<div class="p-4 h-screen w-full dark:bg-gray-900">
+		<!--  h-screen = take hight of screen , w-full = full width   -->
+		<section th:replace="${content}"></section>
+
+	</div>
+	<!-- 	<footer>Footer : Design And Developed By Abhishek Narkhede</footer> -->
+	<script th:src="@{'/js/script.js'}"></script>
+	 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	 <script src="sweetalert2.all.min.js"></script>
+	 <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
+	<script th:src="@{'/js/admin.js'}"></script>
+    <script  src="/js/contacts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/table2excel@1.0.4/dist/table2excel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    
+	
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::#content})}"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Sign Up Page</title>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+	rel="stylesheet" />
+<link rel="stylesheet" data-th-href="@{'/css/output.css'}">
+</head>
+<body>
+
+	<div id="content" class="flex justify-center">
+
+		<div
+			class=" mt-8 w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+
+			<form class="space-y-6" th:action="@{'/do-register'}"
+				th:method="post" th:object="${userForm}" novalidate>
+
+				<div th:replace="message::messagebox"></div>
+				
+				<h5
+					class="text-xl font-medium text-gray-900 dark:text-white text-center">SignUp
+					Here</h5>
+				<div>
+					<label for="name"
+						class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+						Name</label> <input type="text" name="name" id="name" th:field="*{name}"
+						class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+						placeholder="Name" required />
+						
+						<p
+						th:if="${#fields.hasErrors('name')}"
+						th:errors="*{name}"
+						class="text-red-600 px-1 py-2">User is required</p>
+				</div>
+				<div>
+					<label for="email"
+						class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+						email</label> <input type="email" name="email" id="email"
+						th:field="*{email}"
+						class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+						placeholder="name@gmail.com" required />
+						
+						<p
+						th:if="${#fields.hasErrors('email')}"
+						th:errors="*{email}"
+						class="text-red-600 px-1 py-2">User is required</p>
+				</div>
+				<div>
+					<label for="password"
+						class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+						password</label> <input type="password" name="password" id="password"
+						th:field="*{password}" placeholder="••••••••"
+						class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+						required />
+						
+						<p
+						th:if="${#fields.hasErrors('password')}"
+						th:errors="*{password}"
+						class="text-red-600 px-1 py-2">User is required</p>
+				</div>
+				<div>
+					<label for="phone"
+						class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
+						Number</label> <input type="text" name="phoneNo" id="phoneNo"
+						th:field="*{phoneNumber}"
+						class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+						placeholder="Phone Number" required />
+						
+						<p
+						th:if="${#fields.hasErrors('phoneNumber')}"
+						th:errors="*{phoneNumber}"
+						class="text-red-600 px-1 py-2">User is required</p>
+				</div>
+				<div>
+					<label for="message"
+						class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">about
+					</label>
+					<textarea id="message" rows="4" th:field="*{about}"
+						class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						placeholder="Write here..." required></textarea>
+						
+						<p
+						th:if="${#fields.hasErrors('about')}"
+						th:errors="*{about}"
+						class="text-red-600 px-1 py-2">User is required</p>
+				</div>
+
+				<div class="flex items-start">
+					<div class="flex items-start">
+						<div class="flex items-center h-5">
+							<input id="remember" type="checkbox" value=""
+								class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+								required />
+						</div>
+						<label for="remember"
+							class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember
+							me</label>
+					</div>
+					<a href="#"
+						class="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost
+						Password?</a>
+				</div>
+				<button type="submit"
+					class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign
+					Up</button>
+				<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+					Not registered? <a href="#"
+						class="text-blue-700 hover:underline dark:text-blue-500">Create
+						account</a>
+				</div>
+			</form>
+		</div>
+
+
+	</div>
+
+</body>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</html>

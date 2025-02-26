@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::#content})}"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+
+<link href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" rel="stylesheet" />
+
+ <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
+ 
+ <link href="https://unpkg.com/flowbite@latest/dist/flowbite.min.css" rel="stylesheet">
+<script src="https://unpkg.com/flowbite@latest/dist/flowbite.bundle.js"></script>
+ 
+
+</head>
+<body>
+	<div id="content" th:fragment="hidden_contacts">
+		<!-- sidebar -->
+
+		<!-- user is logged in : sidebar -->
+						<div class="flex items-center px-4 justify-between ">
+						
+							<table id="contact_table1" style="display:none;"
+								class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+								<thead
+									class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+									<tr>
+										<th scope="col" class="px-6 py-3">Name</th>
+										<th scope="cos="pxl" clas-6 py-3">Email</th>
+										<th scope="cos="pxl" clas-6 py-3">Phone</th>
+										<th scope="cos="pxl" clas-6 py-3">Address</th>
+										<th scope="cos="pxl" clas-6 py-3">Description</th>
+										<th scope="cos="pxl" clas-6 py-3">WebsiteLink</th>
+										<th scope="col" class="px-6 py-3">LinkedInLink</th>
+										<th scope="col" class="px-6 py-3">Picture</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="contact : ${userHidden} "
+										class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+						                     <td ><span data-th-text="${contact.name}"></td>
+					                    	<td ><span data-th-text="${contact.email}"></td>
+					                     	<td ><span data-th-text="${contact.phoneNumber}"></td>
+						                    <td ><span data-th-text="${contact.address}"></td>
+						                     <td ><span data-th-text="${contact.description}"></td>
+						                     <td ><span data-th-text="${contact.websiteLink}"></td>
+						                     <td ><span data-th-text="${contact.linkedInLink}"></td>
+						                     <td ><span data-th-text="${contact.picture}"></td>
+						
+
+					</tr>
+								</tbody>
+							</table>
+							
+						</div>
+									
+						
+	
+</div>
+<script src="/js/contacts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"> </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::#content})}"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>All Yours Contacts</title>
+<link href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" rel="stylesheet" />
+
+ <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
+ 
+ <link href="https://unpkg.com/flowbite@latest/dist/flowbite.min.css" rel="stylesheet">
+<script src="https://unpkg.com/flowbite@latest/dist/flowbite.bundle.js"></script>
+ 
+
+</head>
+<body>
+	<div id="content">
+		<!-- sidebar -->
+
+		<!-- user is logged in : sidebar -->
+
+		<div th:if="${loggedInUser}">
+			<div data-th-replace="~{user/sidebar :: sidebar}"></div>
+		</div>
+
+		<div class="sm:pl-64 pt-20">
+			<div class="">
+				<h1 class="text-5xl text-center">All Yours Contacts</h1>
+				<p class="text-center">List of All Contacts</p>
+
+
+				<div class="contacts_container p-5">
+					<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+					
+					 <div data-th-replace="~{message :: messagebox}"></div>
+
+						<div class="flex items-center px-4 justify-between ">
+
+
+							<form action="" data-th-object="${contactSearchForm}"
+								th:action="@{'/user/contacts/search'}">
+								<div
+									class="flex space-x-3 p-5 items-center justify-start
+							flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4
+							bg-white dark:bg-gray-900">
+
+									<div>
+										<select data-th-field="*{field}" id="countries_disabled"
+											class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+											<option selected value="">Select Field</option>
+											<option value="name">Name</option>
+											<option value="phone">Phone</option>
+											<option value="email">Email</option>
+										</select>
+									</div>
+
+
+									<label for="table-search" class="sr-only">Search</label>
+									<div class="relative">
+										<div
+											class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+											<svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
+												aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+												fill="none" viewBox="0 0 20 20">
+                                       <path stroke="currentColor"
+													stroke-linecap="round" stroke-linejoin="round"
+													stroke-width="2"
+													d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                    </svg>
+										</div>
+										<input data-th-field="*{value}" type="text"
+											id="table-search-users"
+											class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+											placeholder="Search for users">
+									</div>
+
+									<button type="submit"
+										class="px-3 py-2 bg-gray-800 text-white rounded">
+										Search</button>
+								</div>
+
+							</form>
+
+							<div>
+
+								<button type="button" onclick="exportData()"
+									class="px-3 py-2 bg-green-800 text-white rounded">
+									Export</button>
+
+							</div>
+							
+						</div>
+						
+						<div th:replace="~{user/hidden_table :: hidden_contacts}"></div>
+						
+						<table 
+					th:if="${pageContact.totalElements > 0}"
+						class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+						<thead
+							class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+							<tr>
+								<th scope="col" class="px-6 py-3">Name</th>
+								<th scope="col" class="px-6 py-3">Phone</th>
+								<th scope="col" class="px-6 py-3">Links</th>
+								<th scope="col" class="px-6 py-3">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="contact : ${pageContact.getContent()}"
+								class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+								<th scope="row"
+									class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+
+									<img
+									onerror="this.src='data:image/png;base64,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'"
+									class="w-10 h-10 rounded-full" th:src="@{${contact.picture}}"
+									src="/docs/images/people/profile-picture-1.jpg"
+									alt="Jese image">
+									<div class="ps-3">
+										<div class="text-base font-semibold" th:text="${contact.name}">Neil
+											Sims</div>
+										<div class="font-normal text-gray-500"
+											th:text="${contact.email}">neil.sims@flowbite.com</div>
+									</div>
+								</th>
+								<td class="px-6 py-4"><i class="fa-solid fa-phone w-4 h-4"></i>
+									<span data-th-text="${contact.phoneNumber}"></span></td>
+								<td class="px-6 py-4">
+									<div class="flex items-center">
+
+										<div th:if="${contact.favorite}"
+											class="fa-solid fa-heart w-4 h-4 me-2"></div>
+
+										<a th:href="@{${contact.websiteLink}}" target="_blank"><i
+											class="fa-solid fa-link w-6 h-6"></i></a> <a
+											th:href="@{${contact.websiteLink}}" target="_blank"><i
+											class="fa-brands fa-linkedin w-6 h-6"></i></a>
+
+									</div>
+								</td>
+								<td class="px-6 py-4">
+									<div>
+										<!-- <a th:href="@{'user/contacts/delete/' + ${contact.id}}"><i class="fa-solid fa-trash w-6 h-6"></i> </a>  -->
+										
+										<button th:onclick="deleteContact([[${contact.id}]])"><i class="fa-solid fa-trash w-6 h-6"></i> </button>
+										<!-- <a href=""><i class="fa-solid fa-pen w-6 h-6"></i></a>  -->
+										
+										<a th:href="@{'/user/contacts/view/' + ${contact.id}}"><i class="fa-solid fa-pen w-6 h-6"></i></a> 
+										
+                                        <button th:data-id="${contact.id}"  
+                                        th:onclick="loadContactModel([[${contact.id}]])"><i class="fa-solid fa-eye w-6 h-6"></i></button>
+									</div>
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+  
+					<!-- pagination  -->
+					<div th:if="${pageContact.totalElements != 0}" class="pagination_container p-5 text-center">
+
+						<nav aria-label="Page navigation example">
+							<ul class="inline-flex -space-x-px text-base h-10">
+
+
+								<li th:unless="${pageContact.first}"><a
+									th:href="@{'/user/contacts?size='+${pageSize}+'&page='+${pageContact.number-1}}"
+									class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+								</li>
+
+
+
+								<li
+									th:each="index : ${#numbers.sequence(0,pageContact.totalPages-1)}">
+									<a
+									th:href="@{'/user/contacts?size='+${pageSize}+'&page='+${index}}"
+									th:classappend="${index == pageContact.number} ? 'bg-blue-50 dark:bg-gray-900' : 'bg-white dark:bg-gray-600'"
+									class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+										<span th:text="${index + 1}"></span>
+								</a>
+
+								</li>
+
+
+								<li th:unless="${pageContact.last}"><a
+									th:href="@{'/user/contacts?size='+${pageSize}+'&page='+${pageContact.number+1}}"
+									class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+								</li>
+							</ul>
+						</nav>
+
+					</div>
+
+						<h1
+							class="text-5xl text-center dark:bg-gray-800 dark:text-white bg-white p-4"
+							data-th-if="${pageContact.totalElements<=0}">
+							Contact Not Added!
+						</h1>
+					</div>
+			</div>
+
+		</div>
+	<div th:replace="~{user/contact_modals :: contact}"></div>
+	</div>
+	
+</div>
+<script src="/js/contacts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"> </script>
+
+
+</body>
+
+</html>
